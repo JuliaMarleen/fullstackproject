@@ -11,5 +11,8 @@
     "url": "(https://github.com/JuliaMarleen/fullstackproject)"
   },
   "author": "Marleen van Lubeek",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "gulp-install": "^1.1.0"
+  }
 }
