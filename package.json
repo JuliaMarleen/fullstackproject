@@ -1,0 +1,15 @@
+{
+  "name": "fullstackproject",
+  "version": "1.0.0",
+  "description": "(schoolproject)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(https://github.com/JuliaMarleen/fullstackproject)"
+  },
+  "author": "Marleen van Lubeek",
+  "license": "ISC"
+}
