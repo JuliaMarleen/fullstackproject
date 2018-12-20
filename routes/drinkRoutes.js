@@ -9,11 +9,16 @@ let routes = function(Drink){
         res.sendStatus(200)
     })
     .post(function(req, res){
-        let drink = new Drink(req.body);
-        drink._links.self.href = "http://145.24.222.58:8000/api/drinks/" + drink._id
-        drink._links.collection.href = "http://145.24.222.58:8000/api/drinks"
-        drink.save();
-        res.status(201).send(drink);
+        if(!req.body) {
+            res.send(400)
+        }
+        else {
+            let drink = new Drink(req.body);
+            drink._links.self.href = "http://145.24.222.58:8000/api/drinks/" + drink._id
+            drink._links.collection.href = "http://145.24.222.58:8000/api/drinks"
+            drink.save();
+            res.status(201).send(drink);
+        }
     })
     .get(function(req, res){
         if(req.accepts('json')) {
