@@ -7,7 +7,7 @@ const db = mongoose.connect('mongodb://localhost/drinkAPI');
 let Drink = require('./models/drinkModel');
 let app = express();
 
-let port = process.env.PORT || 3000;
+let port = process.env.PORT || 8000;
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -18,15 +18,15 @@ drinkRouter.route('/Drinks')
 .post(function(req, res){
     let drink = new Drink(req.body);
 
-    console.log(book);
-    res.send(book);
+    console.log(drink);
+    res.send(drink);
 })
 .get(function(req, res){
   let query = {};
   if (req.query.flavor){
     query.genre = req.query.flavor;
   }
-  Book.find(query, function(err, drinks){
+  Drink.find(query, function(err, drinks){
     if(err)
       res.status(500).send(err);
     else
