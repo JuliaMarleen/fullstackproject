@@ -17,49 +17,47 @@ let routes = function(Drink){
     })
     .get(function(req, res){
         if(req.accepts('json')) {
-            let query = {};
-      if (req.query.flavor){
-        query.genre = req.query.flavor;
-      }
-      Drink.find(query, function(err, drinks){
-        if(err)
-          res.status(500).send(err);
-        else
-            res.json({
-                items: drinks,
-                _links: {
-                    self: {
-                        href: "http://145.24.222.58:8000/api/drinks"
-                    }
-                },
-                pagination: {
-                    currentPage: 1,
-                    currentItems: 33,
-                    totalPages: 1,
-                    totalItems: 33,
-                    _links: {
-                        first: {
-                            page: 1,
-                            href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
-                        },
-                        last: {
-                            page: 1,
-                            href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
-                        },
-                        previous: {
-                            page: 1,
-                            href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
-                        },
-                        next: {
-                            page: 1,
-                            href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
-                        }
-                    }
+            
+            Drink.find(function(err, drinks){
+                if(err) {
+                    res.status(500).send(err);
                 }
-            })
-      });
+                else {
+                    res.json({
+                        items: drinks,
+                        _links: {
+                            self: {
+                                href: "http://145.24.222.58:8000/api/drinks"
+                            }
+                        },
+                        pagination: {
+                            currentPage: 1,
+                            currentItems: 33,
+                            totalPages: 1,
+                            totalItems: 33,
+                            _links: {
+                                first: {
+                                    page: 1,
+                                    href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
+                                },
+                                last: {
+                                    page: 1,
+                                    href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
+                                },
+                                previous: {
+                                    page: 1,
+                                    href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
+                                },
+                                next: {
+                                    page: 1,
+                                    href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
+                                }
+                            }
+                        }
+                    })
+                }
+            });
         }
-
         else {
             res.sendStatus(400)
         }
