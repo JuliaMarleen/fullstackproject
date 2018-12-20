@@ -21,7 +21,12 @@ let routes = function(Drink){
           res.status(500).send(err);
         else
             res.json({
-                items: drinks
+                items: drinks,
+                _links: {
+                    self: {
+                        href: "http://145.24.222.58:8000/api/drinks"
+                    }
+                },
             })
       });
     });
