@@ -10,7 +10,7 @@ let routes = function(Drink){
     })
     .post(function(req, res){
         if(!req.body.name || !req.body.flavor || !req.body.color || !req.body.price) {
-            res.send(400)
+            res.sendStatus(400)
         }
         else {
             let drink = new Drink(req.body);
@@ -92,7 +92,7 @@ let routes = function(Drink){
     })
     .put(function(req, res){
         if(!req.body.name || !req.body.flavor || !req.body.color || !req.body.price) {
-            res.send(400)
+            res.sendStatus(400)
         }
         else {
             req.drink.name = req.body.name;
