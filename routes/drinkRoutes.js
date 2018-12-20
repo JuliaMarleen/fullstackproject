@@ -9,7 +9,7 @@ let routes = function(Drink){
         res.sendStatus(200)
     })
     .post(function(req, res){
-        if(!req.body) {
+        if(!req.body.name || !req.body.flavor || !req.body.color || !req.body.price) {
             res.send(400)
         }
         else {
