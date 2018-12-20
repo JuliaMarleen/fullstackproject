@@ -84,7 +84,8 @@ let routes = function(Drink){
 
     drinkRouter.route('/:drinkId')
     .options(function(req, res) {
-        res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,PATCH,DELETE')
+        res.header('allow', ['OPTIONS, GET, PUT, DELETE'])
+        res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,DELETE')
         res.sendStatus(200)
     })
     .get(function(req, res){
