@@ -5,6 +5,7 @@ let routes = function(Drink){
 
     drinkRouter.route('/')
     .options(function(req, res) {
+        res.header('allow', ['OPTIONS, GET, POST'])
         res.header('Access-Control-Allow-Methods', ['OPTIONS,GET,POST'])
         res.sendStatus(200)
     })
