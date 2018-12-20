@@ -6,7 +6,7 @@ let routes = function(Drink){
     drinkRouter.route('/')
     .options(function(req, res) {
         res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST')
-        res.header('Allow', 'OPTIONS,GET,POST')
+        //res.header('Allow', 'OPTIONS,GET,POST')
         res.sendStatus(200)
     })
     .post(function(req, res){
@@ -23,10 +23,9 @@ let routes = function(Drink){
     })
     .get(function(req, res){
         if(req.accepts('json')) {
-            
-            Drink.find(function(err, drinks){
-                if(err) {
-                    res.status(500).send(err);
+            Drink.find(function(error, drinks){
+                if(error) {
+                    res.status(500).send(error);
                 }
                 else {
                     res.json({
@@ -70,9 +69,9 @@ let routes = function(Drink){
     });
     
     drinkRouter.use('/:drinkId', function(req, res, next){
-        Drink.findById(req.params.drinkId, function(err, drink){
-            if(err)
-              res.status(500).send(err);
+        Drink.findById(req.params.drinkId, function(error, drink){
+            if(error)
+              res.status(500).send(error);
             else if (drink){
               req.drink = drink
               next();
@@ -100,9 +99,9 @@ let routes = function(Drink){
             req.drink.flavor = req.body.flavor;
             req.drink.color = req.body.color;
             req.drink.price = req.body.price;
-            req.drink.save(function(err){
-                if(err)
-                res.status(500).send(err);
+            req.drink.save(function(error){
+                if(error)
+                res.status(500).send(error);
                 else
                 res.json(req.drink);
             });
@@ -115,17 +114,17 @@ let routes = function(Drink){
         for(let d in req.body){
             req.drink[d] = req.body[d];
         }
-        req.drink.save(function(err){
-            if(err)
-            res.status(500).send(err);
+        req.drink.save(function(error){
+            if(error)
+            res.status(500).send(error);
             else
             res.json(req.drink);
         });
     })
     .delete(function(req, res){
-        req.drink.remove(function(err){
-            if (err)
-            res.status(500).send(err);
+        req.drink.remove(function(error){
+            if (error)
+            res.status(500).send(error);
             else
             res.status(204).send('removed');
         });
