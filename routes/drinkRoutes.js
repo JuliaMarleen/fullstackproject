@@ -67,6 +67,14 @@ let routes = function(Drink){
             res.json(req.drink);
         });
     })
+    .delete(function(req, res){
+        req.drink.remove(function(err){
+            if (err)
+            res.status(500).send(err);
+            else
+            res.status(204).send('removed');
+        });
+    });
     return drinkRouter;
 };
 
