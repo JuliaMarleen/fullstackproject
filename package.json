@@ -13,6 +13,7 @@
   "author": "Marleen van Lubeek",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "gulp-install": "^1.1.0",
     "mongoose": "^5.4.0"

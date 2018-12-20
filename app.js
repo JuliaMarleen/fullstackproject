@@ -1,27 +1,50 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
 
-const db = mongoose.connect('mongodb://localhost/fullstackAPI');
+const db = mongoose.connect('mongodb://localhost/drinkAPI');
 
-let book = require('./models/bookModel');
+let Drink = require('./models/drinkModel');
 let app = express();
 
 let port = process.env.PORT || 3000;
 
-let bookRouter = express.Router();
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
-bookRouter.route('/Books')
-.get(function(req, res){
-  let responseJson = {hello: "this is my api"}
-  res.json(responseJson)
+let drinkRouter = express.Router();
+
+drinkRouter.route('/Drinks')
+.post(function(req, res){
+    let drink = new Drink(req.body);
+
+    console.log(book);
+    res.send(book);
 })
-// .post(function(req, res){
-//     var responseJson = {hello: "this is my api"}
+.get(function(req, res){
+  let query = {};
+  if (req.query.flavor){
+    query.genre = req.query.flavor;
+  }
+  Book.find(query, function(err, drinks){
+    if(err)
+      res.status(500).send(err);
+    else
+      res.json(drinks);
+  });
+});
 
-//     res.json()
-// });
+drinkRouter.route('/Drinks:/drinkId')
+.get(function(req, res){
+  Drink.findById(req.params.drinkId, function(err, drink){
+    if(err)
+      res.status(500).send(err);
+    else
+      res.json(book);
+  });
+});
 
-app.use('/api', bookRouter);
+app.use('/api', drinkRouter);
 
 app.get('/', function(req, res){
   res.send('welcome to my API')
