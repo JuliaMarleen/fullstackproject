@@ -87,16 +87,21 @@ let routes = function(Drink){
         res.json(req.drink)
     })
     .put(function(req, res){
-        req.drink.name = req.body.name;
-        req.drink.flavor = req.body.flavor;
-        req.drink.color = req.body.color;
-        req.drink.price = req.body.price;
-        req.drink.save(function(err){
-            if(err)
-            res.status(500).send(err);
-            else
-            res.json(req.drink);
-        });
+        if(!req.body.name || !req.body.flavor || !req.body.color || !req.body.price) {
+            res.send(400)
+        }
+        else {
+            req.drink.name = req.body.name;
+            req.drink.flavor = req.body.flavor;
+            req.drink.color = req.body.color;
+            req.drink.price = req.body.price;
+            req.drink.save(function(err){
+                if(err)
+                res.status(500).send(err);
+                else
+                res.json(req.drink);
+            });
+        }
     })
     .patch(function(req, res){
         if(req.body._id){
