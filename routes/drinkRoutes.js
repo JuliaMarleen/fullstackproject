@@ -83,6 +83,10 @@ let routes = function(Drink){
     })
 
     drinkRouter.route('/:drinkId')
+    .options(function(req, res) {
+        res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,PUT,PATCH,DELETE')
+        res.sendStatus(200)
+    })
     .get(function(req, res){
         res.json(req.drink)
     })
