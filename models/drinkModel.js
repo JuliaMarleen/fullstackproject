@@ -12,6 +12,18 @@ let drinkModel = mongoose.Schema({
     },
     price:{
         type: String
+    },
+    _links:{
+        self:{
+            href:{
+                type: String
+            }
+        },
+        collection: {
+            href: {
+                type: String
+            }
+        }
     }
 });
 

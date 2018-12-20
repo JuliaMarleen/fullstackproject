@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
 
-const db = mongoose.connect('mongodb://localhost/drinkAPI');
+const db = mongoose.connect('mongodb://localhost/drinkAPI', {useNewUrlParser: true});
 
 let Drink = require('./models/drinkModel');
 let app = express();
