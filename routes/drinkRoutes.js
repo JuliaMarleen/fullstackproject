@@ -27,6 +27,30 @@ let routes = function(Drink){
                         href: "http://145.24.222.58:8000/api/drinks"
                     }
                 },
+                pagination: {
+                    currentPage: 1,
+                    currentItems: 33,
+                    totalPages: 1,
+                    totalItems: 33,
+                    _links: {
+                        first: {
+                            page: 1,
+                            href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
+                        },
+                        last: {
+                            page: 1,
+                            href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
+                        },
+                        previous: {
+                            page: 1,
+                            href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
+                        },
+                        next: {
+                            page: 1,
+                            href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
+                        }
+                    }
+                }
             })
       });
     });
