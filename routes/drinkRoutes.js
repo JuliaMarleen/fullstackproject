@@ -6,10 +6,8 @@ let routes = function(Drink){
     drinkRouter.route('/')
     .post(function(req, res){
         let drink = new Drink(req.body);
-        
         drink._links.self.href = "http://145.24.222.58:8000/api/drinks/" + drink._id
         drink._links.collection.href = "http://145.24.222.58:8000/api/drinks"
-
         drink.save();
         res.status(201).send(drink);
     })
