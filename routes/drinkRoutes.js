@@ -4,6 +4,9 @@ let routes = function(Drink){
     let drinkRouter = express.Router();
 
     drinkRouter.route('/')
+    .options(function(req, res) {
+        res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST');
+    })
     .post(function(req, res){
         let drink = new Drink(req.body);
         drink._links.self.href = "http://145.24.222.58:8000/api/drinks/" + drink._id
