@@ -1,8 +1,32 @@
-var http = require('http');
-//create a server object:
-http.createServer(function (req, res) {
-  res.write('Hello World!'); //write a response
-  res.end(); //end the response
-}).listen(3000, function(){
- console.log("server start at port 3000"); //the server object listens on port 3000
+const express = require('express');
+const mongoose = require('mongoose');
+
+const db = mongoose.connect('mongodb://localhost/fullstackAPI');
+
+let book = require('./models/bookModel');
+let app = express();
+
+let port = process.env.PORT || 3000;
+
+let bookRouter = express.Router();
+
+bookRouter.route('/Books')
+.get(function(req, res){
+  let responseJson = {hello: "this is my api"}
+  res.json(responseJson)
+})
+// .post(function(req, res){
+//     var responseJson = {hello: "this is my api"}
+
+//     res.json()
+// });
+
+app.use('/api', bookRouter);
+
+app.get('/', function(req, res){
+  res.send('welcome to my API')
+});
+
+app.listen(port, function(){
+  console.log('running on port:' + port);
 });
