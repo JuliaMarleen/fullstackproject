@@ -16,7 +16,8 @@ let routes = function(Drink){
         res.status(201).send(drink);
     })
     .get(function(req, res){
-      let query = {};
+        if(req.accepts('json')) {
+            let query = {};
       if (req.query.flavor){
         query.genre = req.query.flavor;
       }
@@ -57,6 +58,11 @@ let routes = function(Drink){
                 }
             })
       });
+        }
+
+        else {
+            res.sendStatus(400)
+        }
     });
     
     drinkRouter.use('/:drinkId', function(req, res, next){
