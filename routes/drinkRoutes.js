@@ -1,4 +1,5 @@
 const express = require('express');
+let Pagination = require('../pagination')
 
 let routes = function(Drink){
     let drinkRouter = express.Router();
@@ -20,6 +21,7 @@ let routes = function(Drink){
             drink.flavor = req.body.flavor
             drink.color = req.body.color
             drink.price = req.body.price
+
             drink._links.self.href = "http://145.24.222.58:8000/api/drinks/" + drink._id
             drink._links.collection.href = "http://145.24.222.58:8000/api/drinks"
             
@@ -27,30 +29,21 @@ let routes = function(Drink){
             res.status(201).send(drink);
         }
     })
-    .get(function(req, res){
+    .get(async function(req, res) {
+
         if(req.accepts('json')) {
-            Drink.find(function(error, drinks){
 
-                let perPage = 10
-                let page = Math.max(0, req.param('page'))
+            // TODO: PAGINATION
+            const totalItems = await Drink.countDocuments()
+            let start = ((req.query.start === undefined || parseInt(req.query.start) === 0) ? 0 : parseInt(req.query.start))
+            let limit = ((req.query.limit === undefined || parseInt(req.query.limit) === 0) ? 0 : parseInt(req.query.limit))
 
-                Drink.find()
-                //.select('name')
-                .limit(perPage)
-                .skip(perPage * page)
-                // .sort({
-                //     name: 'asc'
-                // })
-                .exec(function(err, events) {
-                    Drink.count().exec(function(err, count) {
-                        res.render('drinks', {
-                            events: drinks,
-                            page: page,
-                            pages: count / perPage
-                        })
-                    })
-                })
+            let currentPage = parseInt(Pagination.currentPage(totalItems, start, limit)) || 1
+            let totalPage = parseInt(Pagination.numberOfPages(totalItems, limit)) || 1
 
+            //Drink.find().skip(start).limit
+
+            Drink.find().skip(start - 1).limit(limit).exec(function(error, drinks) {
 
                 if(error) {
                     res.status(500).send(error);
@@ -60,30 +53,30 @@ let routes = function(Drink){
                         items: drinks,
                         _links: {
                             self: {
-                                href: "http://145.24.222.58:8000/api/drinks"
+                                href: { href: req.protecol + '://' + req.get('host') + req.originalUrl }
                             }
                         },
                         pagination: {
-                            currentPage: 1,
-                            currentItems: 33,
-                            totalPages: 1,
-                            totalItems: 33,
+                            currentPage: currentPage,
+                            currentItems: drinks.length,
+                            totalPages: totalPages,
+                            totalItems: totalItems,
                             _links: {
                                 first: {
                                     page: 1,
-                                    href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
+                                    href: req.protocol + '://' + req.get('host') + req.baseUrl + req.path + Pagination.getFirstQueryString(1, limit)
                                 },
                                 last: {
-                                    page: 1,
-                                    href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
+                                    page: totalPages,
+                                    href: req.protocol + '://' + req.get('host') + req.baseUrl + req.path + Pagination.getLastQueryString(totalItems, limit)
                                 },
                                 previous: {
-                                    page: 1,
-                                    href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
+                                    page: (currentPage - 1 === 0 ? currentPage : currentPage - 1),
+                                    href: req.protocol + '://' + req.get('host') + req.baseUrl + req.path + Pagination.getPreviousQueryString(totalItems, start, limit)
                                 },
                                 next: {
-                                    page: 1,
-                                    href: "https://docent.cmi.hro.nl/bootb/demo/notes/"
+                                    page: (currentPage + 1 >= totalPages ? currentPage : currentPage + 1),
+                                    href: req.protocol + '://' + req.get('host') + req.baseUrl + req.path + Pagination.getNextQueryString(totalItems, start, limit)
                                 }
                             }
                         }
