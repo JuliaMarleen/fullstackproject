@@ -64,19 +64,19 @@ let routes = function(Drink){
                             _links: {
                                 first: {
                                     page: 1,
-                                    href: req.protocol + '://' + req.get('host') + req.baseUrl + req.path + Pagination.getFirstQueryString(1, limit)
+                                    href: 'http://145.24.222.58:8000/api/drinks/' + Pagination.getFirstQueryString(1, limit)
                                 },
                                 last: {
                                     page: totalPages,
-                                    href: req.protocol + '://' + req.get('host') + req.baseUrl + req.path + Pagination.getLastQueryString(totalItems, limit)
+                                    href: 'http://145.24.222.58:8000/api/drinks/' + Pagination.getLastQueryString(totalItems, limit)
                                 },
                                 previous: {
                                     page: (currentPage - 1 === 0 ? currentPage : currentPage - 1),
-                                    href: req.protocol + '://' + req.get('host') + req.baseUrl + req.path + Pagination.getPreviousQueryString(totalItems, start, limit)
+                                    href: 'http://145.24.222.58:8000/api/drinks/' + Pagination.getPreviousQueryString(totalItems, start, limit)
                                 },
                                 next: {
                                     page: (currentPage + 1 >= totalPages ? currentPage : currentPage + 1),
-                                    href: req.protocol + '://' + req.get('host') + req.baseUrl + req.path + Pagination.getNextQueryString(totalItems, start, limit)
+                                    href: 'http://145.24.222.58:8000/api/drinks/' + Pagination.getNextQueryString(totalItems, start, limit)
                                 }
                             }
                         }
