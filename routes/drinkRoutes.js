@@ -38,8 +38,8 @@ let routes = function(Drink){
             let start = ((req.query.start === undefined || parseInt(req.query.start) === 0) ? 0 : parseInt(req.query.start))
             let limit = ((req.query.limit === undefined || parseInt(req.query.limit) === 0) ? 0 : parseInt(req.query.limit))
 
-            let currentPage = parseInt(Pagination.currentPage(totalItems, start, limit)) || 1
-            let totalPages = parseInt(Pagination.numberOfPages(totalItems, limit)) || 1
+            let currentPage = number(Pagination.currentPage(totalItems, start, limit)) || 1
+            let totalPages = number(Pagination.numberOfPages(totalItems, limit)) || 1
 
             //Drink.find().skip(start).limit
 

@@ -1,5 +1,5 @@
 module.exports = { 
-    numberOfPages: function(total, start, limit){
+    numberOfPages: function(total, limit){
         return Math.ceil(total / limit) //ceil naar boven afronden
     },
     currentPage: function(total, start, limit) {
