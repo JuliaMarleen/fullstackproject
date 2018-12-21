@@ -53,7 +53,7 @@ let routes = function(Drink){
                         items: drinks,
                         _links: {
                             self: {
-                                href: { href: req.protecol + '://' + req.get('host') + req.originalUrl }
+                                href: 'http://145.24.222.58:8000/api/drinks/'
                             }
                         },
                         pagination: {
