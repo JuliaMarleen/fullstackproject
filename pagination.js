@@ -7,10 +7,10 @@ module.exports = {
         let pages = (total - start) / limit;
         return Math.ceil(totalPages - pages)
     },
-    getFirstQueryString: function(total, start, limit){
+    getFirstQueryString: function(start, limit){
         return `?start=${start}&limit=${limit}`
     },
-    getLastQueryString: function(total, start, limit){
+    getLastQueryString: function(total, limit){
         return `?start=${total}&limit=${limit}`
     },
     getPreviousQueryString: function(total, start, limit){
