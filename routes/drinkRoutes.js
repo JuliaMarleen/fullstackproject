@@ -43,7 +43,7 @@ let routes = function(Drink){
 
             //Drink.find().skip(start).limit
 
-            Drink.find().skip(start - 1).limit(limit).exec(function(error, drinks) {
+            Drink.find().skip(start).limit(limit).exec(function(error, drinks) {
 
                 if(error) {
                     res.status(500).send(error);

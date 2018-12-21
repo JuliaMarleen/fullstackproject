@@ -1,8 +1,3 @@
-// function currentItems(total, start, limit){
-//     if (limit === undefined) return total
-//     return (((total - start) - limit) <= 0) ? (total - start) + 1 : (limit === 0) ? total : limit;
-// }
-
 module.exports = { 
     numberOfPages: function(total, start, limit){
         return Math.ceil(total / limit) //ceil naar boven afronden
