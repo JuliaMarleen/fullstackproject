@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 
 const db = mongoose.connect('mongodb://localhost/drinkAPI', {useNewUrlParser: true});
 
+let Pagination = require('./pagination')
 let Drink = require('./models/drinkModel');
 let app = express();
 

@@ -14,9 +14,15 @@ let routes = function(Drink){
             res.sendStatus(400)
         }
         else {
-            let drink = new Drink(req.body);
+            let drink = new Drink()
+
+            drink.name = req.body.name
+            drink.flavor = req.body.flavor
+            drink.color = req.body.color
+            drink.price = req.body.price
             drink._links.self.href = "http://145.24.222.58:8000/api/drinks/" + drink._id
             drink._links.collection.href = "http://145.24.222.58:8000/api/drinks"
+            
             drink.save();
             res.status(201).send(drink);
         }
@@ -24,6 +30,28 @@ let routes = function(Drink){
     .get(function(req, res){
         if(req.accepts('json')) {
             Drink.find(function(error, drinks){
+
+                let perPage = 10
+                let page = Math.max(0, req.param('page'))
+
+                Drink.find()
+                //.select('name')
+                .limit(perPage)
+                .skip(perPage * page)
+                // .sort({
+                //     name: 'asc'
+                // })
+                .exec(function(err, events) {
+                    Drink.count().exec(function(err, count) {
+                        res.render('drinks', {
+                            events: drinks,
+                            page: page,
+                            pages: count / perPage
+                        })
+                    })
+                })
+
+
                 if(error) {
                     res.status(500).send(error);
                 }
