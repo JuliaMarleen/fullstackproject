@@ -1,8 +1,9 @@
 <template>
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <drink-list :items="this.items" />
+     <button-add-drink/>
+     <drink-list :items="this.data"/>
+     <modal-box v-if="this.showModal" :item="this.itemData"/>
+     <modal-box-create v-if="this.showModalCreate"/>
   </div>
 </template>
 
@@ -10,32 +11,31 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 import DrinkList from '@/components/DrinkList.vue'
+import ModalBox from '@/components/ModalBox.vue'
+import ButtonAddDrink from '@/components/ButtonAddDrink.vue'
+import ModalBoxCreate from '@/components/ModalBoxCreate.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'home',
-  // data() {
-  //   return {
-  //     items: [
-  //       {
-  //         name: "Fanta",
-  //         color: "Yellow",
-  //         price: "3"
-  //       }, 
-  //               {
-  //         name: "Cola",
-  //         color: "Brown",
-  //         price: "2"
-  //       }, 
-  //               {
-  //         name: "Fristi",
-  //         color: "Pink",
-  //         price: "5"
-  //       }
-  //       ]
-  //   }
-  // },
+  computed: mapState([
+    'data',
+    'showModal',
+    'currentItemId',
+    'itemData',
+    'showModalCreate'
+  ]), 
   components: {
     DrinkList,
-  }
+    ModalBox,
+    ModalBoxCreate,
+    ButtonAddDrink
+  },
 }
 </script>
+
+<style>
+body{
+  background-color: aqua;
+}
+</style>

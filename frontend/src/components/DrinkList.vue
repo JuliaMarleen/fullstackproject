@@ -1,6 +1,6 @@
 <template>
   <div class="drinklist">
-    <h1>drinks</h1>
+    <h1>Wat voor drinken wil je?</h1>
     <ul>
       <drink-item :key="index" v-for="(item, index) in items" :item="item"></drink-item>
     </ul>
@@ -9,7 +9,6 @@
 
 <script>
 import DrinkItem from '@/components/DrinkItem.vue'
-import axios from 'axios'
 
 export default {
   name: 'DrinkList',
@@ -22,10 +21,13 @@ export default {
     }
   },
     mounted () {
-    axios
-      .get('http://145.24.222.58:8000/api/drinks')
-      .then(response => (this.items = response.data.items))
+    
   },
+  //   post () {
+  //   axios
+  //     .post('http://145.24.222.58:8000/api/drinks')
+  //     .then(response => (this.items = response.data.items))
+  // },
   props: ['items']
 }
 </script>
